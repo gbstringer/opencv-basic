@@ -11,6 +11,8 @@ scikit-image = "*"
 opencv-contrib-python = "*"
 napari = "*"
 matplotlib = "*"
+numpy = ">=1.22.1"
+pure-eval = "==0.2.2"
 
 [requires]
 python_version = "3.8"
