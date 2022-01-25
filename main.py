@@ -14,7 +14,7 @@ INPUT_PATH = 'data/hardy/'
 OUTPUT_PATH = 'output/'
 OUTPUT_THRESHOLD = 88       # Threshold for final output
 CROPPING_THRESHOLD_UPPER = 255      # Threshold used to select the crop outline
-CROPPING_THRESHOLD_LOWER = 120
+CROPPING_THRESHOLD_LOWER = 250
 
 
 
@@ -29,12 +29,13 @@ for f in onlyfiles:
 
     # Read image as BGR array
     img = cv2.imread(filename=INPUT_PATH + f)
+    #img = cv2.bitwise_not(imgreal)
     # Convert to greyscale
     grey = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     # Calculate threshold for OCR output
     ret, thresh = cv2.threshold(grey, OUTPUT_THRESHOLD, 255, cv2.THRESH_OTSU)
     # Find the contours of the largest object
-    _, cropthresh = cv2.threshold(thresh, CROPPING_THRESHOLD_LOWER, CROPPING_THRESHOLD_UPPER, cv2.THRESH_BINARY)
+    _, cropthresh = cv2.threshold(thresh, CROPPING_THRESHOLD_LOWER, CROPPING_THRESHOLD_UPPER, cv2.THRESH_OTSU)
     contours, hierarchy = cv2.findContours(cropthresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     maxc = []
     maxa = 0
@@ -53,6 +54,7 @@ for f in onlyfiles:
     cv2.rectangle(boundbox, (x, y), (x + w, y + h), (0, 255, 0), 20)
 
     crop = img[y:y + h, x:x + w]
+    resized = cv2.resize(crop,None,fx=0.1,fy=0.1)
 
     cropocr = thresh[y:y + h, x:x + w]
 
@@ -61,7 +63,7 @@ for f in onlyfiles:
 #    print('Writing cropped colour image to '+noext.__str__() + '-cropped.jpg')
     _ = cv2.imwrite(img=crop, filename=''+noext.__str__() + '-cropped.jpg')
  #   print('Writing cropped thresholded image for OCR processing to '+noext.__str__())
-    _ = cv2.imwrite(img=cropocr, filename=noext.__str__() + '-thresholded.jpg')
+    _ = cv2.imwrite(img=boundbox, filename=noext.__str__() + '-thresholded.jpg')
 
 
 print("Done.")
