@@ -54,7 +54,7 @@ for f in onlyfiles:
     cv2.rectangle(boundbox, (x, y), (x + w, y + h), (0, 255, 0), 20)
 
     crop = img[y:y + h, x:x + w]
-    resized = cv2.resize(crop,None,fx=0.1,fy=0.1)
+    thumb = cv2.resize(crop,None,fx=0.1,fy=0.1)
 
     cropocr = thresh[y:y + h, x:x + w]
 
@@ -64,6 +64,8 @@ for f in onlyfiles:
     _ = cv2.imwrite(img=crop, filename=''+noext.__str__() + '-cropped.jpg')
  #   print('Writing cropped thresholded image for OCR processing to '+noext.__str__())
     _ = cv2.imwrite(img=boundbox, filename=noext.__str__() + '-thresholded.jpg')
+ #   print('Writing cropped thresholded image for OCR processing to '+noext.__str__())
+    _ = cv2.imwrite(img=thumb, filename=noext.__str__() + '-thumb.jpg')
 
 
 print("Done.")

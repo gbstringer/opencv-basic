@@ -10,3 +10,7 @@ Initial experiments with thresholding
 
 #### basics03.ipynb
 * Playground - try different parameters for threshold values
+
+#### main.py
+* Bulk script to process many images
+* Set the input path to process all images within
