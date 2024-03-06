@@ -11,6 +11,9 @@ Initial experiments with thresholding
 #### basics03.ipynb
 * Playground - try different parameters for threshold values
 
+#### pathlib_examples.ipynb
+* Examples of how to use 'pythonic' filepath references
+
 #### main.py
 * Bulk script to process many images
 * Set the input path to process all images within
